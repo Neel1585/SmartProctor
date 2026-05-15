@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
@@ -13,8 +14,8 @@ from StudentDashboard import student_dashboard_bp
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/smartproctor"
-app.config["SECRET_KEY"] = "mysecretkey"
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "fallbacksecret")
 
 mongo = PyMongo(app)
 app.mongo = mongo
